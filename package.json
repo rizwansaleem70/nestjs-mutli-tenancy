@@ -24,11 +24,11 @@
     "typeorm:migrate": "npm run typeorm migration:run -- -d src/data-source.ts",
     "typeorm:generate": "npm run typeorm -- -d src/data-source.ts migration:generate ./src/database/migrations/$npm_config_name-migration",
     "typeorm:revert": "npm run typeorm -- -d ./src/data-source.ts migration:revert",
+    "seed": "ts-node --project=tsconfig.json ./node_modules/typeorm-extension/bin/cli.cjs seed:run -d data-source.ts",
     "typeorm:tenant-show": "TENANT_DATABASE=$npm_config_database npm run typeorm migration:show -- -d src/data-source.ts",
     "typeorm:tenant-revert": "TENANT_DATABASE=$npm_config_database npm run typeorm -- -d ./src/data-source.ts migration:revert",
     "typeorm:tenant-migrate": "TENANT_DATABASE=$npm_config_database npm run typeorm migration:run -- -d src/data-source.ts",
     "typeorm:tenant-generate": "TENANT_DATABASE=$npm_config_database npm run typeorm -- -d src/data-source.ts migration:generate ./src/database/tenant-migrations/$npm_config_name-migration",
-    "seed": "ts-node --project=tsconfig.json ./node_modules/typeorm-extension/bin/cli.cjs seed:run -d data-source.ts",
     "seed-tenant": "TENANT_DATABASE=$npm_config_database ts-node --project=tsconfig.json ./node_modules/typeorm-extension/bin/cli.cjs seed:run -d data-source.ts"
   },
   "dependencies": {

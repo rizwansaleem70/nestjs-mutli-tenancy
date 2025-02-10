@@ -1,11 +1,12 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Tenant } from './entities/tenant.entity';
-import { TenantModule } from './common/tenant/tenant.module';
+import { TenantModule } from './tenant/tenant.module';
 import { DataSource } from 'typeorm';
+import { TenantMiddleware } from './tenant/tenant.middleware';
 
 @Module({
   imports: [
@@ -32,13 +33,13 @@ import { DataSource } from 'typeorm';
 })
 export class AppModule {
   constructor(private dataSource: DataSource) {}
-  // configure(consumer: MiddlewareConsumer) {
-  //   consumer
-  //     .apply(TenantMiddleware)
-  //     .exclude(
-  //       { path: 'tenants', method: RequestMethod.ALL }, // Exclude all routes inside TenantModule
-  //       { path: 'tenants/(.*)', method: RequestMethod.ALL }, // Exclude subroutes
-  //     )
-  //     .forRoutes('*'); // Apply middleware to all other routes
-  // }
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(TenantMiddleware)
+      .exclude(
+        { path: 'tenants', method: RequestMethod.ALL }, // Exclude all routes inside TenantModule
+        { path: 'tenants/(.*)', method: RequestMethod.ALL }, // Exclude subroutes
+      )
+      .forRoutes('*'); // Apply middleware to all other routes
+  }
 }

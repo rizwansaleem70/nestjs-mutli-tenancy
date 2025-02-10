@@ -12,7 +12,7 @@ let migrationsPath = 'src/database/migrations/*.ts';
 
 if (process.env.TENANT_DATABASE) {
   migrationsPath = 'src/database/tenant-migrations/*.ts';
-  entitiesPath = 'src/common/tenant/entities/**.entity.ts';
+  entitiesPath = 'src/tenant/entities/**.entity.ts';
 }
 
 const databaseName = process.env.TENANT_DATABASE ?? process.env.DB_DATABASE;
